@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:startDestination="@+id/listFragment"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_graph">
+
+    <fragment
+        android:id="@+id/listFragment"
+        android:name="com.example.recyclerviewmvvmviewpager.view.ListFragment"
+        tools:layout="@layout/fragment_list">
+
+        <action
+            android:id="@+id/action_listFragment_to_detailFragment"
+            app:destination="@+id/detailFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.example.recyclerviewmvvmviewpager.view.DetailFragment"
+        android:label="item_detail_adapter"
+        tools:layout="@layout/item_detail_adapter">
+
+        <argument
+            android:name="detailFragmentArgs"
+            app:argType="com.example.recyclerviewmvvmviewpager.model.Sports"
+            />
+
+        </fragment>
+
+
+
+</navigation>
