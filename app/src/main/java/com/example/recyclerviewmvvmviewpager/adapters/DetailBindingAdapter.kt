@@ -2,26 +2,30 @@ package com.example.recyclerviewmvvmviewpager.adapters
 
 import android.view.View
 import android.widget.ImageView
-import androidx.appcompat.widget.Toolbar
+import android.widget.Toolbar
+
 import androidx.databinding.BindingAdapter
-import androidx.navigation.Navigation
+
 import androidx.viewpager2.widget.ViewPager2
-import com.example.recyclerviewmvvmviewpager.R
 import com.example.recyclerviewmvvmviewpager.model.Sports
 import com.example.recyclerviewmvvmviewpager.viewmodel.DetailViewModel
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.CollapsingToolbarLayout
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+
 
 
 @BindingAdapter("bindDetailViewModel")
 fun ViewPager2.setDetailViewPager(
-    viewModel: DetailViewModel
+    viewModel: DetailViewModel?
 ) {
-    val detailViewPagerAdapter = DetailViewPageAdapter(this, viewModel)
-    detailViewPagerAdapter.submitList(viewModel.sportList)
+    val detailViewPagerAdapter = viewModel?.let { DetailViewPageAdapter(this, it) }
+    if (viewModel != null) {
+        detailViewPagerAdapter?.submitList(viewModel.sportList)
+    }
     this.adapter = detailViewPagerAdapter
-    this.setCurrentItem(viewModel.selectedSport.id, false)
+    if (viewModel != null) {
+        this.setCurrentItem(viewModel.selectedSport.id, false)
+    }
 }
 
 
@@ -31,7 +35,7 @@ fun ImageView.setDetailItemImage(sports: Sports) {
 }
 
 
-@BindingAdapter("bindViewPager", "bindViewPagerFab")
+/* @BindingAdapter("bindViewPager", "bindViewPagerFab")
 fun Toolbar.setToolbar(
     viewPager: ViewPager2,
     viewPagerFab: FloatingActionButton
@@ -63,7 +67,7 @@ fun Toolbar.setToolbar(
     })
 }
 
-
+*/
 @BindingAdapter("bindDetailAppbar", "bindDetailCollapsingToolbar")
 fun AppBarLayout.setDetailAppbar(
     sports: Sports,
